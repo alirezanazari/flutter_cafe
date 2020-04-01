@@ -11,10 +11,12 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+
+  final _formKey = GlobalKey<FormState>();
   final AuthRepository _authRepo = AuthRepository();
   String _email;
-
   String _password;
+  String _error = '' ;
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +44,19 @@ class _RegisterState extends State<Register> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
+          key: _formKey ,
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
               TextFormField(
+                validator: (val) => val.isEmpty ? 'Enter valid email': null,
                 onChanged: (val) {
                   _email = val;
                 },
               ),
               SizedBox(height: 20),
               TextFormField(
+                validator: (val) => val.length < 6 ? 'Enter valid passord' : null,
                 obscureText: true,
                 onChanged: (val) {
                   _password = val;
@@ -61,10 +66,19 @@ class _RegisterState extends State<Register> {
               RaisedButton(
                 color: Colors.pink[400],
                 child: Text('Sign up', style: TextStyle(color: Colors.white)),
-                onPressed: () {
-                  print(_email);
-                  print(_password);
+                onPressed: () async{
+                  if(_formKey.currentState.validate()){
+                    dynamic user = await _authRepo.registerWithEmailAndPassword(_email, _password);
+                    setState(() {
+                      _error = user == null ? 'Register failed , try with valid data' : '';
+                    });
+                  }
                 },
+              ),
+              SizedBox(height: 20),
+              Text(
+                _error ,
+                style: TextStyle(color: Colors.red , fontSize: 12),
               )
             ],
           ),
