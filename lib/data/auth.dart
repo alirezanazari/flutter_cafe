@@ -4,7 +4,12 @@ import 'package:fluttercafe/data/entity/user.dart';
 class AuthRepository{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  User _getUserFromFirebase(FirebaseUser user) => User(uid: user.uid);
+  User _getUserFromFirebase(FirebaseUser user) => user == null ? null : User(uid: user.uid);
+
+  //auth user change stream
+  Stream<User> get user{
+    return _auth.onAuthStateChanged.map(_getUserFromFirebase);
+  }
 
   //sign in anonymous
   Future signInAnon() async{
@@ -18,6 +23,13 @@ class AuthRepository{
     }
   }
 
-  
+  //sign out
+  Future signOut() async {
+    try{
+      return await _auth.signOut();
+    }catch(e){
+      return null;
+    }
+  }
 
 }
