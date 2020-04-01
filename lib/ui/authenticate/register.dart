@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercafe/data/auth.dart';
 import 'package:fluttercafe/internal/constants.dart';
+import 'package:fluttercafe/internal/widgets.dart';
 
 class Register extends StatefulWidget {
 
@@ -18,6 +19,7 @@ class _RegisterState extends State<Register> {
   String _email;
   String _password;
   String _error = '' ;
+  bool isLoading = false ;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class _RegisterState extends State<Register> {
           )
         ],
       ),
-      body: Container(
+      body: isLoading ? Loading() : Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
           key: _formKey ,
@@ -71,9 +73,11 @@ class _RegisterState extends State<Register> {
                 child: Text('Sign up', style: TextStyle(color: Colors.white)),
                 onPressed: () async{
                   if(_formKey.currentState.validate()){
+                    setState(() => isLoading = true);
                     dynamic user = await _authRepo.registerWithEmailAndPassword(_email, _password);
                     setState(() {
                       _error = user == null ? 'Register failed , try with valid data' : '';
+                      if(user == null) setState(() => isLoading = false);
                     });
                   }
                 },
