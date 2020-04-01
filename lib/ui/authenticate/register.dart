@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercafe/data/auth.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
 
   final Function toggleView ;
-  SignIn({ this.toggleView });
+  Register({ this.toggleView });
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthRepository _authRepo = AuthRepository();
   String _email;
 
@@ -22,7 +22,7 @@ class _SignInState extends State<SignIn> {
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
-        title: Text("Sign in"),
+        title: Text("Register"),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(
@@ -30,7 +30,7 @@ class _SignInState extends State<SignIn> {
               color: Colors.white,
             ),
             label: Text(
-              'Register',
+              'SignIn',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
@@ -60,7 +60,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 40),
               RaisedButton(
                 color: Colors.pink[400],
-                child: Text('Sign in', style: TextStyle(color: Colors.white)),
+                child: Text('Sign up', style: TextStyle(color: Colors.white)),
                 onPressed: () {
                   print(_email);
                   print(_password);
@@ -73,12 +73,3 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-/*
-dynamic user = await _authRepo.signInAnon();
-            if(user != null){
-              print('sign in');
-              print(user.uid);
-            }else{
-              print('error');
-            }
-* */
