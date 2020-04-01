@@ -11,10 +11,12 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
+  final _formKey = GlobalKey<FormState>();
   final AuthRepository _authRepo = AuthRepository();
   String _email;
-
   String _password;
+  String _error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +44,19 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
+          key: _formKey,
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
               TextFormField(
+                validator: (val) => val.isEmpty ? 'Enter valid email' : null,
                 onChanged: (val) {
                   _email = val;
                 },
               ),
               SizedBox(height: 20),
               TextFormField(
+                validator: (val) => val.length < 6 ? 'Enter valid password' : null ,
                 obscureText: true,
                 onChanged: (val) {
                   _password = val;
@@ -61,10 +66,17 @@ class _SignInState extends State<SignIn> {
               RaisedButton(
                 color: Colors.pink[400],
                 child: Text('Sign in', style: TextStyle(color: Colors.white)),
-                onPressed: () {
-                  print(_email);
-                  print(_password);
+                onPressed: () async{
+                  if(_formKey.currentState.validate()){
+                    dynamic user = await _authRepo.signInWithEmailAndPassword(_email, _password);
+                    setState(() => _error = user == null ? 'Sign in failed , try with valid info' : '');
+                  }
                 },
+              ),
+              SizedBox(height: 20),
+              Text(
+                _error  ,
+                style: TextStyle(color: Colors.red , fontSize: 12),
               )
             ],
           ),
