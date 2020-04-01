@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "222212251179",
+    "firebase_url": "https://flutter-cafe-tut.firebaseio.com",
+    "project_id": "flutter-cafe-tut",
+    "storage_bucket": "flutter-cafe-tut.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222212251179:android:d7b87cd2b16aed6157d46e",
+        "android_client_info": {
+          "package_name": "ir.alirezanazari.fluttercafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222212251179-vhdfif5mjivcl605mte3j8v5lcqsdpnr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOy5kk-vZEjRPWx2GwcbcFdWDc8BvTdTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222212251179-vhdfif5mjivcl605mte3j8v5lcqsdpnr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
