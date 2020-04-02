@@ -15,11 +15,17 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
 
   final _formKey = GlobalKey<FormState>();
-  final AuthRepository _authRepo = AuthRepository();
+  AuthRepository _authRepo = AuthRepository();
   String _email;
   String _password;
   String _error = '' ;
   bool isLoading = false ;
+
+  @override
+  void dispose() {
+    _authRepo = null;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

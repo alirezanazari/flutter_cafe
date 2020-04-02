@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttercafe/data/cafe.dart';
 import 'package:fluttercafe/data/entity/user.dart';
 
 class AuthRepository{
@@ -38,6 +39,7 @@ class AuthRepository{
   Future registerWithEmailAndPassword(String email , String password) async{
     try{
       AuthResult result= await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      if(result != null) await CafeRepository(userId: result.user.uid).updateUserData('Test Cafe', "Test Llocation", 0);
       return _getUserFromFirebase(result.user);
     }catch(e){
       print(e.toString());
