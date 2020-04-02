@@ -74,7 +74,7 @@ class _SignInState extends State<SignIn> {
                 onPressed: () async{
                   if(_formKey.currentState.validate()){
                     setState(() => isLoading = true);
-                    dynamic user = await _authRepo.signInWithEmailAndPassword(_email, _password);
+                    dynamic user = await _authRepo.signInWithEmailAndPassword(_email.trim(), _password.trim());
                     setState(() => _error = user == null ? 'Sign in failed , try with valid info' : '');
                     if(user == null) setState(() => isLoading = false);
                   }

@@ -80,7 +80,7 @@ class _RegisterState extends State<Register> {
                 onPressed: () async{
                   if(_formKey.currentState.validate()){
                     setState(() => isLoading = true);
-                    dynamic user = await _authRepo.registerWithEmailAndPassword(_email, _password);
+                    dynamic user = await _authRepo.registerWithEmailAndPassword(_email.trim(), _password.trim());
                     setState(() {
                       _error = user == null ? 'Register failed , try with valid data' : '';
                       if(user == null) setState(() => isLoading = false);

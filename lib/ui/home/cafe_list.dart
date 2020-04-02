@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercafe/data/entity/cafe.dart';
 import 'package:provider/provider.dart';
@@ -12,10 +11,10 @@ class _CafeListState extends State<CafeList> {
   @override
   Widget build(BuildContext context) {
 
-    final cafes = Provider.of<List<Cafe>>(context);
+    final cafes = Provider.of<List<Cafe>>(context) ?? [];
 
     return ListView.builder(
-      itemCount: cafes == null ? 0 : cafes.length,
+      itemCount: cafes.length,
       itemBuilder: (context , index){
         return CafeTile(cafe: cafes[index]);
       },

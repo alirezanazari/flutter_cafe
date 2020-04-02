@@ -9,8 +9,8 @@ class CafeRepository{
 
   final CollectionReference cafeCollection = Firestore.instance.collection('cafe');
 
-  Future<void> updateUserData(String name , String location , int rate) async{
-    return await cafeCollection.document(userId).setData({
+  Future<void> addNewCafe(String name , String location , int rate) async{
+    return await cafeCollection.document('${name.replaceAll(' ', '_').trim().toLowerCase()}$userId').setData({
       'name' :  name,
       'location': location ,
       'rate' : rate
